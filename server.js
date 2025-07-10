@@ -83,23 +83,10 @@ MongoClient.connect(db, (err, db) => {
         cookie: {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 24 * 60 * 60 * 1000, // 24 hours
-            expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
+            maxAge: 1000 * 60 * 60 * 24, // 24 hours
+            sameSite: 'strict'
         }
     }));
-    // Fix for A9 - Insecure Dependencies
-    marked.setOptions({
-        sanitize: true
-    });
-    app.locals.marked = marked;
-
-    // Application routes
-    routes(app, db);
-
-    // Template system setup
-    swig.setDefaults({
-        // Autoescape disabled
-        autoescape: false
         /*
         // Fix for A3 - XSS, enable auto escaping
         autoescape: true // default value
