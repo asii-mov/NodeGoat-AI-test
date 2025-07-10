@@ -83,23 +83,10 @@ MongoClient.connect(db, (err, db) => {
         cookie: {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            domain: process.env.APP_DOMAIN || '.yourdomain.com',
-            path: '/',
             maxAge: 24 * 60 * 60 * 1000, // 24 hours
-            sameSite: 'strict'
+            expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
         }
     }));
-
-    // Register templating engine
-    app.engine(".html", consolidate.swig);
-    app.set("view engine", "html");
-    app.set("views", `${__dirname}/app/views`);
-    // Fix for A5 - Security MisConfig
-    // TODO: make sure assets are declared before app.use(session())
-    app.use(express.static(`${__dirname}/app/assets`));
-
-
-    // Initializing marked library
     // Fix for A9 - Insecure Dependencies
     marked.setOptions({
         sanitize: true
