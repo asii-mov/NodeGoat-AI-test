@@ -76,30 +76,19 @@ MongoClient.connect(db, (err, db) => {
         extended: false
     }));
     app.use(session({
-        name: 'sessionId-' + Math.random().toString(36).substring(2),
         secret: cookieSecret,
         saveUninitialized: true,
         resave: true,
+        name: 'sessionId',
         cookie: {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 3600000, // 1 hour
+            domain: process.env.APP_DOMAIN || '.yourdomain.com',
+            path: '/',
+            maxAge: 24 * 60 * 60 * 1000, // 24 hours
             sameSite: 'strict'
         }
     }));
-
-    }));
-
-    /*
-    // Fix for A8 - CSRF
-    // Enable Express csrf protection
-    app.use(csrf());
-    // Make csrf token available in templates
-    app.use((req, res, next) => {
-        res.locals.csrftoken = req.csrfToken();
-        next();
-    });
-    */
 
     // Register templating engine
     app.engine(".html", consolidate.swig);
