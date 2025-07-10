@@ -83,23 +83,11 @@ MongoClient.connect(db, (err, db) => {
         cookie: {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24, // 24 hours
+            path: '/',
+            maxAge: 3600000, // 1 hour
             sameSite: 'strict'
         }
     }));
-        /*
-        // Fix for A3 - XSS, enable auto escaping
-        autoescape: true // default value
-        */
-    });
-
-    // Insecure HTTP connection
-    http.createServer(app).listen(port, () => {
-        console.log(`Express http server listening on port ${port}`);
-    });
-
-    /*
-    // Fix for A6-Sensitive Data Exposure
     // Use secure HTTPS protocol
     https.createServer(httpsOptions, app).listen(port, () => {
         console.log(`Express http server listening on port ${port}`);
