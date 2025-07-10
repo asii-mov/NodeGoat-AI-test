@@ -12,7 +12,9 @@ const MongoClient = require("mongodb").MongoClient; // Driver for connecting to 
 const http = require("http");
 const marked = require("marked");
 //const nosniff = require('dont-sniff-mimetype');
+const csrf = require('csurf');
 const app = express(); // Web framework to handle routing requests
+app.use(csrf({ cookie: { sameSite: 'strict' } }));
 const routes = require("./app/routes");
 const { port, db, cookieSecret } = require("./config/config"); // Application config properties
 /*
