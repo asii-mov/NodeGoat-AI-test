@@ -81,8 +81,8 @@ MongoClient.connect(db, (err, db) => {
             return crypto.randomUUID(); // use UUIDs for session IDs
         },
         secret: cookieSecret,
-        saveUninitialized: true,
-        resave: true,
+        saveUninitialized: false,
+        resave: false,
         cookie: {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -93,13 +93,13 @@ MongoClient.connect(db, (err, db) => {
         }
     }));
 
-    /*
-    // Fix for A8 - CSRF
     // Enable Express csrf protection
     app.use(csrf());
     // Make csrf token available in templates
     app.use((req, res, next) => {
         res.locals.csrftoken = req.csrfToken();
+        next();
+    });
         next();
     */
     });
