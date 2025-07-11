@@ -82,7 +82,7 @@ MongoClient.connect(db, (err, db) => {
         resave: false,
         cookie: {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: true,  // Always require HTTPS
             maxAge: 3600000, // 1 hour
             expires: new Date(Date.now() + 3600000), // explicit expiration date
             sameSite: 'strict',
