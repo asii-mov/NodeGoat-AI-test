@@ -90,16 +90,12 @@ MongoClient.connect(db, (err, db) => {
         }
     }));
 
-    /*
-    // Fix for A8 - CSRF
-    // Enable Express csrf protection
+    // Enable CSRF protection
     app.use(csrf());
-    // Make csrf token available in templates
     app.use((req, res, next) => {
         res.locals.csrftoken = req.csrfToken();
         next();
     });
-    */
 
     // Register templating engine
     app.engine(".html", consolidate.swig);
