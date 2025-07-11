@@ -89,7 +89,8 @@ MongoClient.connect(db, (err, db) => {
             sameSite: 'strict',
             maxAge: 3600000, // 1 hour
             expires: new Date(Date.now() + 3600000), // explicit expiration date
-            domain: process.env.DOMAIN || '.example.com' // specify your domain
+            domain: process.env.DOMAIN || '.example.com', // specify your domain
+            path: '/' // explicitly set cookie path
         }
     }));
 
