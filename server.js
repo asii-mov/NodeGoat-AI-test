@@ -88,6 +88,7 @@ MongoClient.connect(db, (err, db) => {
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
             maxAge: 3600000, // 1 hour
+            expires: new Date(Date.now() + 3600000), // explicit expiration date
             domain: process.env.DOMAIN || '.example.com' // specify your domain
         }
     }));
@@ -100,6 +101,7 @@ MongoClient.connect(db, (err, db) => {
     app.use((req, res, next) => {
         res.locals.csrftoken = req.csrfToken();
         next();
+    */
     });
     */
     */
