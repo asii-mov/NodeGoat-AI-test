@@ -87,7 +87,8 @@ MongoClient.connect(db, (err, db) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
-            maxAge: 3600000 // 1 hour
+            maxAge: 3600000, // 1 hour
+            domain: process.env.DOMAIN || '.example.com' // specify your domain
         }
     }));
 
@@ -100,6 +101,7 @@ MongoClient.connect(db, (err, db) => {
         res.locals.csrftoken = req.csrfToken();
         next();
     });
+    */
     */
 
     // Register templating engine
