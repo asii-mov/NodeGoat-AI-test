@@ -1,6 +1,8 @@
 # NodeGoat - Testing codesucks-ai
 In this repository codesucks-ai is used to identify and remediate vulnerabilities using Anthropic's Claude.
 
+You can view the latest pull request [here](https://github.com/asii-mov/NodeGoat-AI-test/pull/3)
+
 
 # NodeGoat - Readme
 
