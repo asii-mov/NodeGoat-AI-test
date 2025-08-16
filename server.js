@@ -76,33 +76,21 @@ MongoClient.connect(db, (err, db) => {
 
     // Enable session management using express middleware
     app.use(session({
-        // genid: (req) => {
-        //    return genuuid() // use UUIDs for session IDs
-        //},
+        name: 'sessionId-' + Math.random().toString(36).substring(2),
         secret: cookieSecret,
-        // Both mandatory in Express v4
-        saveUninitialized: true,
-        resave: true
-        /*
-        // Fix for A5 - Security MisConfig
-        // Use generic cookie name
-        key: "sessionId",
-        */
-
-        /*
-        // Fix for A3 - XSS
-        // TODO: Add "maxAge"
+        saveUninitialized: false,
+        resave: false,
         cookie: {
-            httpOnly: true
-            // Remember to start an HTTPS server to get this working
-            // secure: true
+            httpOnly: true,
+            secure: true,  // Always require HTTPS
+            maxAge: 3600000, // 1 hour
+            expires: new Date(Date.now() + 3600000), // explicit expiration
+            sameSite: 'strict',
+            domain: process.env.APP_DOMAIN || '.yourdomain.com',
+            path: '/'
         }
-        */
-
     }));
 
-    /*
-    // Fix for A8 - CSRF
     // Enable Express csrf protection
     app.use(csrf());
     // Make csrf token available in templates
@@ -110,9 +98,6 @@ MongoClient.connect(db, (err, db) => {
         res.locals.csrftoken = req.csrfToken();
         next();
     });
-    */
-
-    // Register templating engine
     app.engine(".html", consolidate.swig);
     app.set("view engine", "html");
     app.set("views", `${__dirname}/app/views`);
