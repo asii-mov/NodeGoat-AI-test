@@ -31,7 +31,7 @@ function ContributionsHandler(db) {
         // Insecure use of eval() to parse inputs
         const preTax = parseFloat(req.body.preTax) || 0;
         const afterTax = parseFloat(req.body.afterTax) || 0;
-        const roth = eval(req.body.roth);
+        const roth = parseFloat(req.body.roth) || 0;
 
         /*
         //Fix for A1 -1 SSJS Injection attacks - uses alternate method to eval
