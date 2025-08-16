@@ -86,7 +86,8 @@ MongoClient.connect(db, (err, db) => {
             maxAge: 3600000, // 1 hour
             expires: new Date(Date.now() + 3600000), // explicit expiration
             sameSite: 'strict',
-            domain: process.env.APP_DOMAIN || '.yourdomain.com'
+            domain: process.env.APP_DOMAIN || '.yourdomain.com',
+            path: '/'
         }
     }));
 
