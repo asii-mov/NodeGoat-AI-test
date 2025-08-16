@@ -84,6 +84,7 @@ MongoClient.connect(db, (err, db) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             maxAge: 3600000, // 1 hour
+            expires: new Date(Date.now() + 3600000), // explicit expiration
             sameSite: 'strict',
             domain: process.env.APP_DOMAIN || '.yourdomain.com'
         }
