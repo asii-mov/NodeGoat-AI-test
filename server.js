@@ -78,8 +78,8 @@ MongoClient.connect(db, (err, db) => {
     app.use(session({
         name: 'sessionId-' + Math.random().toString(36).substring(2),
         secret: cookieSecret,
-        saveUninitialized: true,
-        resave: true,
+        saveUninitialized: false,
+        resave: false,
         cookie: {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -90,8 +90,6 @@ MongoClient.connect(db, (err, db) => {
         }
     }));
 
-    /*
-    // Fix for A8 - CSRF
     // Enable Express csrf protection
     app.use(csrf());
     // Make csrf token available in templates
@@ -99,7 +97,6 @@ MongoClient.connect(db, (err, db) => {
         res.locals.csrftoken = req.csrfToken();
         next();
     });
-    */
 
     // Register templating engine
     app.engine(".html", consolidate.swig);
